@@ -1,0 +1,17 @@
+﻿@model ProjectManager.Models.Xero.ItemGroup
+
+@{
+    ViewBag.Title = "Group Item";
+}
+
+<h2>Group Item</h2>
+
+<div>
+    <h4>
+        @Html.DisplayFor(model => model.ItemGroupName)
+    </h4>
+</div>
+
+@Html.Partial("ListXeroItems", (List<ProjectManager.Models.Xero.XeroItem>)ViewBag.ItemGroupItems)
+@Html.Action("PublishGroupItemPartialView", Model)
+@Html.Action("AddXeroItem")

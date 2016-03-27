@@ -1,0 +1,73 @@
+﻿@using ProjectManager.Models.Xero
+@model IEnumerable<ProjectManager.Models.Xero.XeroTransaction>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<table class="table">
+    <tr>
+        <th>Beginning Balance</th>
+        <th>Time To Load</th>
+    </tr>
+    <tr>
+        <td>@Html.Raw(ViewBag.BeginningBalance)</td>
+        <td>@Html.Raw(ViewBag.ElapsedTime)</td>
+    </tr>
+</table>
+<h3>Cashflow Schedule</h3>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Date)
+        </th>
+        <th>
+            Description
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Amount)
+        </th>
+        <th>
+            *
+        </th>
+        <th>
+            Balance
+        </th>
+        <th></th>
+    </tr>
+
+    @for (var i = 0; i < Model.Count(); i++)
+    {
+        var item = Model.ElementAt(i);
+        <tr>
+            <td>
+                @Html.Raw(item.Date.GetValueOrDefault().ToShortDateString())
+            </td>
+            <td>
+                @Html.Raw(item.Contact)
+            </td>
+            <td>
+                @{
+                    if (item.XeroTransactionType == XeroTransactionType.Deposit)
+                    {
+                        ViewBag.BeginningBalance += item.Amount;
+                        @:<p style="color: green">
+
+
+                    }
+                    else if (item.XeroTransactionType == XeroTransactionType.Withdrawal)
+                    {
+                        ViewBag.BeginningBalance += item.Amount;
+                        @:<p style="color: red">
+                    }
+                }
+                @Html.Raw(string.Format("{0:C}", item.Amount.GetValueOrDefault()))
+            </td>
+            <td>|</td>
+            <td><b>@Html.Raw(string.Format("{0:C}", ViewBag.BeginningBalance))</b></td>
+        </tr>
+    }
+    
+</table>

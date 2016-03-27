@@ -1,0 +1,41 @@
+﻿@using System.Diagnostics.Eventing.Reader
+@{
+    ViewBag.Title = "Home Page";
+}
+
+<div class="container">
+    <div class="jumbotron">
+        <h1>Project Manager</h1>
+        <br />
+        @if (User.IsInRole("viewer") || User.IsInRole("manager") || User.IsInRole("admin"))
+        {
+            <h2>Viewer</h2>
+            @Html.ActionLink("Xero CashFlow", "Index", "XeroCashFlow", null, new {@class = "btn btn-lg btn-info"})
+            @Html.Raw(" ")
+            
+        }
+        @if (User.IsInRole("manager") || User.IsInRole("admin"))
+        {
+            <h2>Management</h2>
+            @Html.ActionLink("Item Manager ", "Index", "ItemGroup", null, new { @class = "btn btn-lg btn-info" })
+            @Html.Raw(" ")
+
+            @Html.ActionLink("Time Entry ", "Index", "Timesheet", null, new { @class = "btn btn-lg btn-info" })
+            @Html.Raw(" ")
+
+            @Html.ActionLink("Tracking ", "Index", "Tracking", null, new { @class = "btn btn-lg btn-info" })
+        }
+        @if (User.IsInRole("admin"))
+        {
+            <h2>Admin</h2>
+            @Html.ActionLink("Timesheets ", "Index", "Payroll", null, new { @class = "btn btn-lg btn-info" })
+            @Html.Raw(" ")
+
+            @Html.ActionLink("Admin ", "index", "user", new { area = "Admin" }, new { @class = "btn btn-lg btn-info" })
+        }
+        @if(!User.Identity.IsAuthenticated)
+        {
+            <p> Please Login </p>
+        }
+    </div>
+</div>

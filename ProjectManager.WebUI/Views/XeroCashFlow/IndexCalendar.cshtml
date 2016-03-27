@@ -1,0 +1,77 @@
+﻿@model IEnumerable<ProjectManager.Models.Xero.XeroTransaction>
+@{
+    ViewBag.Title = "IndexCalendar";
+    var today = DateTime.Today;
+    today = today.AddDays((today.Day*-1) + 1);
+    string monthString = ViewBag.CalendarMonth[today.Month];
+    var DayOfWeek = new Dictionary<string, int>
+    {
+        { "Sunday", 0 },
+        { "Monday", 1 },
+        { "Tuesday", 2 },
+        { "Wednesday", 3 },
+        { "Thursday", 4 },
+        { "Friday", 5 },
+        { "Saturday", 6 }
+    };
+
+    var startDay = DayOfWeek[today.DayOfWeek.ToString()];
+
+    var started = false;
+    var totaldays = DateTime.DaysInMonth(today.Year, today.Month);
+    string dayString = "";
+    var day = 1;
+}
+
+<h2>@Html.Raw(monthString)</h2>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-1 day-heading">Sunday</div>
+        <div class="col-md-1 day-heading">Monday</div>
+        <div class="col-md-1 day-heading">Tuesday</div>
+        <div class="col-md-1 day-heading">Wednesday</div>
+        <div class="col-md-1 day-heading">Thursday</div>
+        <div class="col-md-1 day-heading">Friday</div>
+        <div class="col-md-1 day-heading">Sunday</div>
+    </div>
+    @while(day < totaldays)
+    {
+        <div class="row">
+            @for (var column = 0; column < 7; column++)
+            {
+                if (started)
+                {
+                    if (day >= totaldays)
+                    {
+                        started = false;
+                        dayString = "";
+                    }
+                    else
+                    {
+                        dayString = (++day).ToString();
+                    }
+                }
+                else if (column == startDay)
+                {
+                    dayString = day.ToString();
+                    started = true;
+
+                }
+                if (column == 0 || column == 6)
+                {
+                    <div class="col-xs-1 col-md-1 calendar-day" id="@Html.Raw(dayString)">
+                        <div class="day-num">@Html.Raw(dayString)</div>
+                    </div>
+                }
+                else
+                {
+                    <div class="col-xs-1 col-md-1 calendar-day" id="@Html.Raw(dayString)">
+                        <div class="day-num">@Html.Raw(dayString)</div>
+                    </div>
+                }
+
+            }
+        </div>
+    }
+</div>
+<script src="https://code.jquery.com/jquery-2.2.0.min.js"></script>

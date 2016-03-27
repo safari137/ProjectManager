@@ -1,0 +1,67 @@
+﻿@helper SelectedTabClass(string tabName)
+{
+    if (tabName == ViewBag.SelectedTab)
+    {
+        @: active
+    }
+}
+
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+
+</head>
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li class="@SelectedTabClass("Home")">@Html.ActionLink("Home", "Index", "Home")</li>
+                    @if (User.IsInRole("viewer") || User.IsInRole("manager") || User.IsInRole("admin"))
+                    {
+                        <li class="@SelectedTabClass("XeroCashFlow")">@Html.ActionLink("Xero CashFlow", "Index", "XeroCashFlow")</li>
+                    }
+                    @if (User.IsInRole("manager") || User.IsInRole("admin"))
+                    {
+                        <li class="@SelectedTabClass("Item Manager")">@Html.ActionLink("Item Manager", "Index", "ItemGroup")</li>
+                        <li class="@SelectedTabClass("TimeEntry")">@Html.ActionLink("Time Entry", "index", "Timesheet")</li>
+                        <li class="@SelectedTabClass("Tracking")">@Html.ActionLink("Tracking", "index", "Tracking")</li>
+                    }
+                    @if (User.IsInRole("admin"))
+                    {
+                        <li class="@SelectedTabClass("Timesheets")">@Html.ActionLink("Timesheets", "index", "Payroll")</li>
+                        <li class="@SelectedTabClass("Admin")">@Html.ActionLink("Admin", "index", "user", new { area = "Admin"}, null)</li>
+                    }
+                </ul>
+                @Html.Partial("_LoginPartial")
+            </div>
+        </div>
+    </div>
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year - Project Management - Dills Construction</p>
+        </footer>
+    </div>
+    
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

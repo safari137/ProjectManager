@@ -1,0 +1,92 @@
+﻿@model ProjectManager.Models.Xero.Timesheet
+@{
+    ViewBag.Title = "Time Sheet Edit";
+    decimal total = 0;
+}
+
+<h2>Timesheet Edit</h2>
+<h4>@Html.Raw(Model.Employee.FullName) - @Html.Raw(Model.EndDate.ToShortDateString())</h4>
+<br/>
+@Html.Raw(ViewBag.Changes)
+<table class="table">
+    <tr>
+        <th>Customer</th>
+        <th>Sat</th>
+        <th>Sun</th>
+        <th>Mon</th>
+        <th>Tue</th>
+        <th>Wed</th>
+        <th>Thu</th>
+        <th>Fri</th>
+        <th>Total</th>
+    </tr>
+
+    @using (Html.BeginForm("TimeSheetEdit", "Payroll", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        @Html.HiddenFor(model => model.TimeSheetStatus)
+        @Html.HiddenFor(model => model.TimeSheetId)
+        @Html.HiddenFor(model => model.Employee.XeroEmployeeId)
+        @Html.HiddenFor(model => model.Employee.EmployeeId)
+        @Html.HiddenFor(model => model.EmployeeId)
+        @Html.HiddenFor(model => model.Employee.FullName)
+        @Html.HiddenFor(model => model.StartDate)
+        @Html.HiddenFor(model => model.EndDate)
+        var columnTotal = new decimal[7];
+
+        for (var i=0;i<Model.TimesheetLines.Count;i++)
+        {
+            decimal lineTotal = 0;
+            Model.TimesheetLines[i].Units = Model.TimesheetLines[i].Units.OrderBy(u => u.Index).ToList();
+
+            @Html.HiddenFor(model => model.TimesheetLines[i].EarningsId)
+            @Html.HiddenFor(model => model.TimesheetLines[i].TimeSheetLineId)
+            @Html.HiddenFor(model => model.TimesheetLines[i].TimeSheetId)
+            <tr>
+                <td>
+                    @Html.DropDownListFor(model => model.TimesheetLines[i].CustomerId, new SelectList(ViewBag.Customers, "Key", "Value", Model.TimesheetLines[i].CustomerId), htmlAttributes: new {@class = "form-control"})
+                    @Html.HiddenFor(model => model.TimesheetLines[i].CustomerName)
+                </td>
+                @for (var k = 0; k < Model.TimesheetLines[i].Units.Count; k++)
+                {
+                    lineTotal += Model.TimesheetLines[i].Units[k].Hours;
+                    <td>
+                        @Html.EditorFor(model => model.TimesheetLines[i].Units[k].Hours, new {htmlAttributes = new {@class = "form-control timesheet-cell", @placeholder ="Hours"}})
+                        @Html.EditorFor(model => model.TimesheetLines[i].Units[k].Description, new {htmlAttributes = new {@class = "form-control timesheet-cell", @placeholder = "Notes"}})
+                    </td>
+                    @Html.HiddenFor(model => model.TimesheetLines[i].Units[k].UnitId)
+                    @Html.HiddenFor(model => model.TimesheetLines[i].Units[k].TimeSheetLineId)
+                    @Html.HiddenFor(model => model.TimesheetLines[i].Units[k].Index)
+                    columnTotal[k] += Model.TimesheetLines[i].Units[k].Hours;
+                }
+                <td><strong>@Html.Raw(lineTotal)</strong></td>
+            </tr>
+            total += lineTotal;
+        }
+        <tr>
+            <td><b>Totals</b></td>
+            @for (var i = 0; i < 7; i++)
+            {
+                <td>
+                    <strong>@Html.Raw(columnTotal[i])</strong>
+                </td>
+            }
+            <td><strong>@Html.Raw(total)</strong></td>
+        </tr>
+        <tr>
+            <td>
+                <input type="submit" name="submitType" value="Submit" class="btn btn-success"/>
+                <input type="submit" name="submitType" value="AddLine" class="btn btn-danger" />
+            </td>
+        </tr>
+    }
+
+    <tr>
+        <td>
+            <b>Status</b> : @Html.Raw(Model.TimeSheetStatus)
+        </td>
+    </tr>
+</table>

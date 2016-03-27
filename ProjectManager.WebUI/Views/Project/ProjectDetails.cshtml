@@ -1,0 +1,78 @@
+﻿@model ProjectManager.Models.Project
+
+@{
+    ViewBag.Title = "ProjectDetails";
+}
+
+<h2>ProjectDetails</h2>
+
+<div>
+    <h4>Project</h4>
+    <p>
+        @Html.ActionLink("All Customers", "Index", "Customer") ->
+        @Html.ActionLink(Model.Customer.Name, "CustomerDetails", "Customer", new {id = Model.CustomerId}, null) ->
+        @Html.DisplayFor(model => model.Name)
+    </p>
+    <hr/>
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Customer.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Customer.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.StartDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StartDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FinishDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FinishDate)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "EditProject", new { id = Model.ProjectId }) |
+    @Html.ActionLink("Delete", "DeleteProject", new { id = Model.ProjectId }) |
+    @Html.ActionLink("Back to Customer", "CustomerDetails", "Customer", new { id = Model.CustomerId }, null) 
+</p>
+<h4>Jobs</h4>
+<h6>@Html.ActionLink("Add New Job", "CreateJob", "Job", new { id = Model.ProjectId }, null)</h6>
+<table class="table">
+    <tr>
+        <th>Job</th>
+        <th>Start Date</th>
+        <th>Finish Date</th>
+    </tr>
+    @foreach (var job in @Model.Jobs)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(jobItem => job.Project.Customer.Name) ->
+                @Html.DisplayFor(jobItem => job.Project.Name) ->
+                @Html.ActionLink(job.Name, "JobDetails", "Job", new {id = job.JobId}, null)
+            </td>
+            <td>@Html.Raw(job.StartDate.ToShortDateString())</td>
+            <td>@Html.Raw(job.FinishDate.ToShortDateString())</td>
+        </tr>
+    }
+</table>
+

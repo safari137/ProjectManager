@@ -1,0 +1,82 @@
+﻿@using ProjectManager.Models
+@model ProjectManager.Models.Job
+
+@{
+    ViewBag.Title = "JobDetails";
+}
+
+<h2>JobDetails</h2>
+<div>
+    <h4>Job</h4>
+    <p>
+        @Html.ActionLink("All Customers", "Index", "Customer") ->
+        @Html.ActionLink(Model.Project.Customer.Name, "CustomerDetails", "Customer", new {id = Model.Project.CustomerId}, null) ->
+        @Html.ActionLink(Model.Project.Name, "ProjectDetails", "Project", new {id = Model.ProjectId}, null) ->
+        @Html.DisplayFor(model => model.Name)
+    </p>
+    <hr/>
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Project.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Project.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.StartDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StartDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FinishDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FinishDate)
+        </dd>
+
+    </dl>
+    <p>
+        @Html.ActionLink("Edit", "EditJob", new { id = Model.JobId }) |
+        @Html.ActionLink("Delete", "DeleteJob", new {id = Model.JobId}) |
+        @Html.ActionLink("Back to Project", "ProjectDetails", "Project", new {id = Model.ProjectId}, null)
+    </p>
+</div>
+<h4>XeroTransactions</h4>
+<h6>@Html.ActionLink("Add New", "CreateTransaction", "Transaction", new { id = @Model.JobId }, null)</h6>
+
+<table class="table">
+    <tr>
+        <th>Date</th>
+        <th>Description</th>
+        <th>Type</th>
+        <th>Amount</th>
+    </tr>
+    @foreach (var transaction in @Model.Transactions.OrderBy(t => t.Date).ThenBy(t => t.TransactionType))
+    {
+        <tr>
+            <td>@Html.Raw(transaction.Date.ToShortDateString())</td>
+            <td>@Html.ActionLink(transaction.Description, "TransactionDetails", "Transaction", new {id = transaction.TransactionId}, null)</td>
+            <td>@Html.DisplayFor(modelItem => transaction.TransactionType)</td>
+            <td>@Html.DisplayFor(modelItem => transaction.Amount)</td>
+            <td>
+                @Html.ActionLink("Edit", "EditTransaction", "Transaction", new {id = transaction.TransactionId}, null) |
+                @Html.ActionLink("Delete", "DeleteTransaction", "Transaction", new {id = transaction.TransactionId}, null)
+            </td>
+        </tr>
+    }
+</table>
+

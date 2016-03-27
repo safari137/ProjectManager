@@ -1,0 +1,14 @@
+﻿@using ProjectManager.Models.Xero
+@model ProjectManager.Models.Xero.ItemGroup
+
+@using (Html.BeginForm("PublishGroupItem", "ItemGroup", new { id = Model.ItemGroupId }, FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+
+
+    <div class="form-horizontal" align="center">
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+       <input type="submit" value="Publish" class="btn btn-lg btn-info" />
+    </div>
+}
+

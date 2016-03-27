@@ -1,0 +1,15 @@
+﻿@using ProjectManager.Services.XeroService
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+<div class="bottom-left">
+    @Html.Raw(ViewBag.PayrollCalls + " Payroll Calls")
+    <br/>
+    @Html.Raw(ViewBag.AccountingCalls + " Accounting Calls")
+    <br/>
+    @Html.Raw(ViewBag.ApiCalls + " Total Calls")
+</div>
+

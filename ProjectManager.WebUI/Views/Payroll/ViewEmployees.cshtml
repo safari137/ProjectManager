@@ -1,0 +1,31 @@
+﻿@model IEnumerable<ProjectManager.Models.Xero.Employee>
+
+@{
+    ViewBag.Title = "ViewEmployees";
+}
+
+<h2>ViewEmployees</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.XeroEmployeeId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FullName)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.XeroEmployeeId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.FullName)
+        </td>
+    </tr>
+}
+
+</table>

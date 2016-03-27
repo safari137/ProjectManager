@@ -1,0 +1,69 @@
+﻿@model ProjectManager.Models.Xero.Timesheet
+@{
+    ViewBag.Title = "Timesheet Details";
+    decimal total = 0;
+    var customerDictionary = ProjectManager.Services.XeroService.XeroTrackingCategoryConnection.GetAll();
+    var dayTotal = new decimal[7];
+}
+
+<h2>Timesheet Details</h2>
+<h4>@Html.Raw(Model.Employee.FullName) - @Html.Raw(Model.EndDate.ToShortDateString())</h4>
+
+@if (User.IsInRole("admin"))
+{
+    <h3>@Html.ActionLink("Edit", "TimeSheetEdit", new {id = Model.TimeSheetId})</h3>
+}
+
+<table class="table">
+    <tr>
+        <th>Customer</th>
+        <th>Saturday</th>
+        <th>Sunday</th>
+        <th>Monday</th>
+        <th>Tuesday</th>
+        <th>Wednesday</th>
+        <th>Thursday</th>
+        <th>Friday</th>
+        <th>Total</th>
+    </tr>
+
+    @foreach (var line in Model.TimesheetLines)
+    {
+        decimal lineTotal = 0;
+        <tr>
+            <td>
+                @Html.Raw(customerDictionary[line.CustomerId])
+            </td>
+
+            @foreach (var unit in line.Units.OrderBy(u => u.Index))
+            {
+                lineTotal += unit.Hours;
+                dayTotal[unit.Index] += unit.Hours;
+                <td>
+                    @Html.Raw(((unit.Hours) > 0 ? unit.Hours.ToString() : "-"))
+                </td>
+            }
+            <td><strong>@Html.Raw(lineTotal)</strong></td>
+        </tr>
+        total += lineTotal;
+    }
+
+    <tr>
+        <td>
+            <b>Status</b> : @Html.Raw(Model.TimeSheetStatus)
+        </td>
+        @for (var i = 0; i < 7; i++)
+        {
+            <td><strong>@Html.Raw(dayTotal[i])</strong></td>
+        }
+        <td>
+            <b>@Html.Raw(total)</b>
+        </td>
+    </tr>
+</table>
+
+@if (User.IsInRole("admin"))
+{
+    <p align="center">@Html.ActionLink("Publish To Xero", "PublishToXero", "Payroll", new {id = Model.TimeSheetId}, new {@class = "btn btn-lg btn-info"})</p>
+}
+

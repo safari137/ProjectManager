@@ -1,0 +1,66 @@
+﻿@model ProjectManager.Models.Customer
+
+@{
+    ViewBag.Title = "CustomerDetails";
+}
+
+<h2>Customer Details</h2>
+
+<div>
+    <h4>Customer</h4>
+    @Html.ActionLink("Customer List", "Index", "Customer")
+    <hr/>
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Address)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Address)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PhoneNumber)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PhoneNumber)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Email)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "EditCustomer", new {id = Model.CustomerId}) |
+    @Html.ActionLink("Delete", "DeleteCustomer", new {id = Model.CustomerId}) |
+    @Html.ActionLink("Customer List", "Index")
+</p>
+<h4>Projects</h4>
+<h6>@Html.ActionLink("Add New", "CreateProject", "Project", new {id = Model.CustomerId}, null)</h6>
+<table class="table">
+
+    @foreach (var project in Model.Projects)
+    {
+        <tr>
+            <td>@Html.ActionLink(project.Name, "ProjectDetails", "Project", new { id = project.ProjectId }, null)</td>
+        </tr>
+    }
+</table>
+
+
+

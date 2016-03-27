@@ -1,0 +1,37 @@
+﻿@model ProjectManager.WebUI.Models.CreateTimeSheetViewModel
+@{
+    ViewBag.Title = "CreateTimeSheet";
+}
+
+<h2>CreateTimeSheet</h2>
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h4>EmployeeViewModel</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.XeroEmployeeId, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.XeroEmployeeId, new SelectList(ViewBag.Employees, "XeroEmployeeId", "FullName"), new {@class = "control-label col-md-2"})
+            </div>
+            @Html.LabelFor(model => model.EndDate, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.EndDate, new SelectList(ViewBag.EndDates), new { @class = "control-label col-md-2" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" name="submitType" value="Create" class="btn btn-default"/>
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>

@@ -1,0 +1,66 @@
+﻿@model ProjectManager.Models.Transaction
+
+@{
+    ViewBag.Title = "XeroTransactionDetails";
+}
+
+<h2>XeroTransactionDetails</h2>
+
+<div>
+    <h4>XeroTransaction</h4>
+    <p>
+        @Html.ActionLink("All Customers", "Index", "Customer") ->
+        @Html.ActionLink(Model.Job.Project.Customer.Name, "CustomerDetails", "Customer", new {id = Model.Job.Project.CustomerId}, null) ->
+        @Html.ActionLink(Model.Job.Project.Name, "ProjectDetails", "Project", new {id = Model.Job.ProjectId}, null) ->
+        @Html.ActionLink(Model.Job.Name, "JobDetails", "Job", new {id = Model.JobId}, null) ->
+        @Html.DisplayFor(model => model.Description)
+    </p>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Job.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Job.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Description)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Date)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Date)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TransactionType)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TransactionType)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Amount)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Amount)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "EditTransaction", new { id = Model.TransactionId }) |
+    @Html.ActionLink("Back to Job", "JobDetails", "Job", new { id = Model.JobId}, null) |
+    @Html.ActionLink("Back to previous page", null, null, null, new { href = Request.UrlReferrer })
+</p>

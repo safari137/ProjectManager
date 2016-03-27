@@ -1,0 +1,12 @@
+﻿@model String[]
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+@foreach (var line in Model)
+{
+    <p> @Html.DisplayFor(modelLine => line)</p>
+    <hr/>
+}

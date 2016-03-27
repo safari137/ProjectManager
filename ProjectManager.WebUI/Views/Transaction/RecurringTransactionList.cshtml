@@ -1,0 +1,51 @@
+﻿@model IEnumerable<ProjectManager.Models.RecurringTransaction>
+
+@{
+    ViewBag.Title = "RecurringTransactionList";
+}
+
+<h2>RecurringXeroTransactionList</h2>
+
+<p>
+    @Html.ActionLink("Create New", "CreateRecurringTransaction")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Description)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.StartingDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NumberOfEntries)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Occurence)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Description)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.StartingDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.NumberOfEntries)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Occurence)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "EditRecurringTransaction", new {id = item.RecurringTransactionId}) |
+            @Html.ActionLink("Delete", "DeleteRecurringTransaction", new {id = item.RecurringTransactionId}) |
+            @Html.ActionLink("View XeroTransactions", "ViewRecurringTransactions", "Transaction", new {id = item.RecurringTransactionId}, null)
+        </td>
+    </tr>
+}
+
+</table>

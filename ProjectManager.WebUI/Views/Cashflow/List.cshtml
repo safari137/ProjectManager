@@ -1,0 +1,89 @@
+﻿@using ProjectManager.Models
+@model IEnumerable<ProjectManager.Models.Transaction>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("New XeroTransaction", "CreateTransactionFromScratch", "Transaction") |
+    @Html.ActionLink("Create Recurring XeroTransaction", "CreateRecurringTransaction", "Transaction")
+</p>
+<table class="table">
+    <tr>
+        <th>Beginning Balance</th>
+        <th>Last Updated</th>
+    </tr>
+    <tr>
+        <td>@Html.Raw(ViewBag.Balance)</td>
+        <td>
+            @Html.Raw(ViewBag.LastUpdated)
+            @Html.ActionLink(" Update", "UpdateBalance")
+        </td>
+
+    </tr>
+</table>
+<h3>Cashflow Schedule</h3>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Date)
+        </th>
+        <th>
+            Description
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Amount)
+        </th>
+        <th>
+            *
+        </th>
+        <th>
+            Balance
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.Raw(item.Date.ToShortDateString())
+            </td>
+        <td>
+            @Html.ActionLink(item.DescriptionPath, "EditTransaction", "Transaction",
+                new {id = item.TransactionId}, null)
+        </td>
+            <td style="text-align:right">
+                @{
+                    if (item.TransactionType == TransactionType.Deposit)
+                    {
+                        ViewBag.Balance += item.Amount;
+                        @:<p style="color:green">
+
+
+                    }
+                    else if (item.TransactionType == TransactionType.Withdrawal)
+                    {
+                        ViewBag.Balance -= item.Amount;
+                        item.Amount = 0 - item.Amount;
+                        @:<p style="color:red">
+                    }
+                }
+                @Html.DisplayFor(modelItem => item.Amount)
+            </td>
+            <td>|</td>
+            <td style="text-align:right"><b>@Html.Raw(ViewBag.Balance)</b></td>
+            <td>
+                @Html.ActionLink("Clone", "CloneTransaction", "Transaction", new { id = item.TransactionId }, null) |
+                @Html.ActionLink("Delete", "DeleteTransaction", "Transaction", new { id = item.TransactionId }, null) |
+                @Html.ActionLink("Commit", "CommitTransaction", new { id = item.TransactionId }, null)
+
+            </td>
+
+        </tr>
+    }
+
+</table>

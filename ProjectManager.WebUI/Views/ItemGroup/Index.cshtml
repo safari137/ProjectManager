@@ -1,0 +1,33 @@
+﻿@model IEnumerable<ProjectManager.Models.Xero.ItemGroup>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "CreateGroupItem")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.ItemGroupName)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.ItemGroupName)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.ItemGroupId }) |
+            @Html.ActionLink("Details", "ItemGroupDetails", new { itemGroupId=item.ItemGroupId }) |
+            @Html.ActionLink("Delete", "DeleteGroupItem", new { id=item.ItemGroupId })
+        </td>
+    </tr>
+}
+
+</table>

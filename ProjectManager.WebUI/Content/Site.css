@@ -1,0 +1,96 @@
+﻿body {
+    padding-top: 50px;
+    padding-bottom: 20px;
+}
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Override the default bootstrap behavior where horizontal description lists 
+   will truncate terms that are too long to fit in the left column 
+*/
+.dl-horizontal dt {
+    white-space: normal;
+}
+
+
+.login-form {
+    width: 50%;
+    margin: 15px auto;
+}
+
+.login-form h1 {
+    margin-bottom: 25px;
+}
+
+.login-form .form-group {
+    max-width: 300px;
+}
+
+.btn-login {
+    background: lightblue;
+    text-align: center;
+}
+
+.button-center {
+    padding-left: 13%;
+}
+
+.navbar-inverse .navbar-nav > li > a {
+    color: white;
+}
+
+.navbar-inverse .navbar-nav > li > a:hover {
+    color: lightblue;
+}
+
+.add-line {
+    background-color: #F28383;
+}
+
+.submit {
+    padding-bottom: 100px;
+}
+
+.centered-container {
+    width: 100%;
+    margin: 10px auto;
+}
+
+.navbar-inverse .navbar-nav > .active > a {
+    color: lightblue;
+}
+
+.calendar-day {
+    height: 125px;
+    border: 1px solid black;
+    width: 14%;
+    padding: 0;
+}
+
+.day-heading {
+    font-weight: bold;
+    text-align: center;
+    width: 14%;
+}
+
+.day-num {
+    text-align: right;
+    font-weight: bolder;
+    padding-right: 5px;
+    color: darkslategray;
+}
+
+.day-out-of-scope {
+    background: gray;
+}
+
+.finance {
+    font-size: 11px;
+    color: red;
+    text-align: right;
+}
+
