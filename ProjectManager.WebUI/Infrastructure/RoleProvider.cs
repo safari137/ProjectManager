@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using ProjectManager.DAL.Data;
 using ProjectManager.DAL.Repositories;
 using ProjectManager.Services;

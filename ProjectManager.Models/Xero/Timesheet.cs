@@ -32,6 +32,6 @@ namespace ProjectManager.Models.Xero
     {
         Draft,
         Approved,
-        Processed,
+        Processed
     };
 }

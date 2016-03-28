@@ -43,7 +43,8 @@ namespace ProjectManager.Services
                 Username = username,
                 Password = password,
                 Email = email,
-                Role = role
+                Role = role,
+                LastLoginDate = new DateTime(1990, 1, 1)
             };
 
             _userRepository.Insert(newUser);
