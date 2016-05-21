@@ -231,10 +231,15 @@
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\public_site.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Images\IMG_0226.JPG" />
+    <Content Include="Images\IMG_0227.JPG" />
+    <Content Include="Images\IMG_0228.JPG" />
+    <Content Include="Images\IMG_0229.JPG" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Areas\Admin\Views\User\CreateUser.cshtml" />
@@ -303,6 +308,7 @@
     <Content Include="Views\Tracking\Create.cshtml" />
     <Content Include="Views\UserInfo\Index.cshtml" />
     <Content Include="Views\XeroCashFlow\IndexCalendar.cshtml" />
+    <Content Include="Views\Home\Public.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

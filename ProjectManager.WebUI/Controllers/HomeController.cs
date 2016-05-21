@@ -29,5 +29,10 @@ namespace ProjectManager.WebUI.Controllers
 
             return View();
         }
+
+        public ActionResult Public()
+        {
+            return View();
+        }
     }
 }

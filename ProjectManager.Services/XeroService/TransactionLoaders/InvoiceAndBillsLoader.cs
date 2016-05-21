@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using ProjectManager.Contracts;
 using ProjectManager.Models.Xero;
-using Xero.Api.Core;
-using Xero.Api.Core.Model;
 using Xero.Api.Core.Model.Types;
 
 namespace ProjectManager.Services.XeroService.TransactionLoaders
@@ -35,17 +33,12 @@ namespace ProjectManager.Services.XeroService.TransactionLoaders
                 var newTransaction = new XeroTransaction
                 {
                     Contact = invoice.Contact.Name,
-                    Date = invoice.DueDate,
-                    Amount = invoice.AmountDue,
-                    XeroTransactionType = XeroTransactionType.Deposit
+                    Date = (invoice.Type == InvoiceType.AccountsReceivable) ? invoice.ExpectedPaymentDate : invoice.DueDate,
+                    Amount = (invoice.Type == InvoiceType.AccountsReceivable) ? invoice.AmountDue : invoice.AmountDue * -1,
+                    XeroTransactionType = (invoice.Type == InvoiceType.AccountsReceivable) ? XeroTransactionType.Deposit : XeroTransactionType.Withdrawal
                 };
 
-                if (invoice.Type == InvoiceType.AccountsPayable)
-                {
-                    newTransaction.Amount *= -1;
-                    newTransaction.XeroTransactionType = XeroTransactionType.Withdrawal;
-                }
-                else
+                if (invoice.Type == InvoiceType.AccountsReceivable)
                 {
                     var costTransaction = _invoiceCostRetriever.CreateCostTransaction(invoice);
                     if (costTransaction != null)
