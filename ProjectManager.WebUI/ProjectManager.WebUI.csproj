@@ -212,6 +212,7 @@
     <Compile Include="Controllers\AuthController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ItemGroupController.cs" />
+    <Compile Include="Controllers\MemoController.cs" />
     <Compile Include="Controllers\PayrollController.cs" />
     <Compile Include="Controllers\RegisterController.cs" />
     <Compile Include="Controllers\StatusController.cs" />
@@ -309,6 +310,8 @@
     <Content Include="Views\UserInfo\Index.cshtml" />
     <Content Include="Views\XeroCashFlow\IndexCalendar.cshtml" />
     <Content Include="Views\Home\Public.cshtml" />
+    <Content Include="Views\Memo\Index.cshtml" />
+    <Content Include="Views\Memo\CreateMemo.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

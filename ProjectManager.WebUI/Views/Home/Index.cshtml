@@ -32,6 +32,8 @@
             @Html.Raw(" ")
 
             @Html.ActionLink("Admin ", "index", "user", new { area = "Admin" }, new { @class = "btn btn-lg btn-info" })
+            @Html.Raw(" ")
+            @Html.ActionLink("Memo", "Index", "Memo", null, new {@class = "btn btn-lg btn-info"})
         }
         @if(!User.Identity.IsAuthenticated)
         {

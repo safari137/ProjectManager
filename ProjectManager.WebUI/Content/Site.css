@@ -64,6 +64,14 @@
     color: lightblue;
 }
 
+.big-area {
+    width: 100%;
+}
+
+textarea.big-area {
+    height: 200px;
+}
+
 .calendar-day {
     height: 125px;
     border: 1px solid black;

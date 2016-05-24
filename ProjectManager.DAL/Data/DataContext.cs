@@ -20,5 +20,7 @@ namespace ProjectManager.DAL.Data
         public DbSet<Employee> Employees { get; set; }
 
         public DbSet<AppUser> Users { get; set; }
+
+        public DbSet<Memo> Memos { get; set; }
     }
 }
