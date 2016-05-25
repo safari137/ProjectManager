@@ -25,7 +25,7 @@ namespace ProjectManager.Services.XeroService.TransactionLoaders
                 Amount = 0 - cost,
                 Contact = invoice.Contact.Name + " - Job Cost",
                 XeroTransactionType = XeroTransactionType.Withdrawal,
-                Date = GetDueDate(invoice.DueDate.GetValueOrDefault())
+                Date = GetDueDate(invoice.ExpectedPaymentDate.GetValueOrDefault())
         };
 
             return transaction;
