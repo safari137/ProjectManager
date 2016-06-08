@@ -16,7 +16,7 @@ namespace ProjectManager.WebUI
             routes.MapRoute(
                 "Default",
                 "{controller}/{action}/{id}",
-                new { controller = "Home", action = "Index", id = UrlParameter.Optional },
+                new { controller = "Public", action = "Index", id = UrlParameter.Optional },
                 new string[] { "ProjectManager.WebUI.Controllers" }
             );
         }
