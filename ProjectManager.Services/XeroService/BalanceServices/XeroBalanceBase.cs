@@ -36,9 +36,7 @@ namespace ProjectManager.Services.XeroService.BalanceServices
                     {
                         if (previousCell == accountName)
                         {
-                            decimal balance;
-                            decimal.TryParse(cell.Value, out balance);
-                            _balance = balance;
+                            decimal.TryParse(cell.Value, out _balance);
                             return;
                         }
                         previousCell = cell.Value;
