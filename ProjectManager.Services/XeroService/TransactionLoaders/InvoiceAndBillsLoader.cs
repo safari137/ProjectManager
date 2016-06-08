@@ -26,14 +26,14 @@ namespace ProjectManager.Services.XeroService.TransactionLoaders
                 .OrderByDescending("DueDate")
                 .Find()
                 .Where(i => i.DueDate > DateTime.Today.AddMonths(-1));
-  
 
             foreach (var invoice in invoices)
             {
+                var useExpectedPaymentDate = invoice.Type == InvoiceType.AccountsReceivable && invoice.ExpectedPaymentDate > DateTime.MinValue;
                 var newTransaction = new XeroTransaction
                 {
                     Contact = invoice.Contact.Name,
-                    Date = (invoice.Type == InvoiceType.AccountsReceivable) ? invoice.ExpectedPaymentDate : invoice.DueDate,
+                    Date = (useExpectedPaymentDate) ? invoice.ExpectedPaymentDate : invoice.DueDate,
                     Amount = (invoice.Type == InvoiceType.AccountsReceivable) ? invoice.AmountDue : invoice.AmountDue * -1,
                     XeroTransactionType = (invoice.Type == InvoiceType.AccountsReceivable) ? XeroTransactionType.Deposit : XeroTransactionType.Withdrawal
                 };
