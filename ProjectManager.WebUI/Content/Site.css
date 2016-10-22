@@ -102,3 +102,7 @@ textarea.big-area {
     text-align: right;
 }
 
+.strike {
+    text-decoration: line-through;
+}
+

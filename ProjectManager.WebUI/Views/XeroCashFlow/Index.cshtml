@@ -1,7 +1,4 @@
-﻿@using ProjectManager.Models.Xero
-@model IEnumerable<ProjectManager.Models.Xero.XeroTransaction>
-
-@{
+﻿@{
     ViewBag.Title = "Index";
 }
 
@@ -10,64 +7,37 @@
 <table class="table">
     <tr>
         <th>Beginning Balance</th>
-        <th>Time To Load</th>
     </tr>
     <tr>
-        <td>@Html.Raw(ViewBag.BeginningBalance)</td>
-        <td>@Html.Raw(ViewBag.ElapsedTime)</td>
+        <td data-bind="currency: beginningBalance"></td>
     </tr>
 </table>
 <h3>Cashflow Schedule</h3>
 <table class="table">
     <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Date)
-        </th>
-        <th>
-            Description
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Amount)
-        </th>
-        <th>
-            *
-        </th>
-        <th>
-            Balance
-        </th>
+        <th>Date</th>
+        <th>Description</th>
+        <th>Amount</th>
+        <th>*</th>
+        <th>Balance</th>
+        <th>Ignore</th>
         <th></th>
     </tr>
 
-    @for (var i = 0; i < Model.Count(); i++)
-    {
-        var item = Model.ElementAt(i);
-        <tr>
-            <td>
-                @Html.Raw(item.Date.GetValueOrDefault().ToShortDateString())
-            </td>
-            <td>
-                @Html.Raw(item.Contact)
-            </td>
-            <td>
-                @{
-                    if (item.XeroTransactionType == XeroTransactionType.Deposit)
-                    {
-                        ViewBag.BeginningBalance += item.Amount;
-                        @:<p style="color: green">
-
-
-                    }
-                    else if (item.XeroTransactionType == XeroTransactionType.Withdrawal)
-                    {
-                        ViewBag.BeginningBalance += item.Amount;
-                        @:<p style="color: red">
-                    }
-                }
-                @Html.Raw(string.Format("{0:C}", item.Amount.GetValueOrDefault()))
-            </td>
-            <td>|</td>
-            <td><b>@Html.Raw(string.Format("{0:C}", ViewBag.BeginningBalance))</b></td>
-        </tr>
-    }
-    
+    <tbody data-bind="foreach: transactions">
+    <tr class='transaction'>
+        <td data-bind="date: Date"></td>
+        <td data-bind="text: Contact"></td>
+        <td class='amount' data-bind="currency: Amount, style: { color: (Amount > 0) ? 'green' : 'red' }"></td>
+        <td>|</td>
+        <td data-bind="attr: {id: 'balance_' + $index()}"></td>
+        <td><input name="ignore" type="checkbox" data-bind="attr: {id: 'ignore_' + $index()}"></td>
+    </tr>
+    </tbody>
 </table>
+
+@section scripts {
+    <script src="../../Scripts/knockout-3.3.0.js"></script>
+    <script src="../../Scripts/cashflow.js"></script>
+}
+

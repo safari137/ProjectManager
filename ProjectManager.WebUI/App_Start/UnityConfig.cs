@@ -1,13 +1,13 @@
 using System;
+using System.Web.Http;
+using System.Web.Mvc;
 using Microsoft.Practices.Unity;
 using Microsoft.Practices.Unity.Configuration;
 using ProjectManager.Contracts;
-using ProjectManager.DAL.Repositories;
-using ProjectManager.Models;
-using ProjectManager.Services;
 using ProjectManager.Services.XeroService;
+using Unity.WebApi;
 
-namespace ProjectManager.WebUI.App_Start
+namespace ProjectManger.WebUI.App_Start
 {
     /// <summary>
     /// Specifies the Unity configuration for the main container.
@@ -42,6 +42,14 @@ namespace ProjectManager.WebUI.App_Start
 
             // TODO: Register your types here
             // container.RegisterType<IProductRepository, ProductRepository>();
+            container.RegisterType<IXeroCashflowConnection, XeroCashflowConnection>();
+        }
+
+        public static void RegisterComponents()
+        {
+            var container = new UnityContainer();
+
+            GlobalConfiguration.Configuration.DependencyResolver = new Unity.WebApi.UnityDependencyResolver(container);
 
             container.RegisterType<IXeroCashflowConnection, XeroCashflowConnection>();
         }
