@@ -265,6 +265,7 @@
     <Content Include="Images\IMG_0227.JPG" />
     <Content Include="Images\IMG_0228.JPG" />
     <Content Include="Images\IMG_0229.JPG" />
+    <Content Include="Images\Preloader_2.gif" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Areas\Admin\Views\User\CreateUser.cshtml" />

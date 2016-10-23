@@ -35,6 +35,32 @@ var viewModel = function () {
 
 var appModel = new viewModel();
 
+$(document).ready(function () {
+    getData();
+});
+
+function getData() {
+    var url = window.location.origin + "/api/cashflow";
+
+    $.ajax({
+        url: url,
+        type: 'GET',
+        contentType: "application/json",
+        datatype: "json",
+        success: function (data) {
+            appModel.transactions(data.XeroTransactions);
+            appModel.beginningBalance(data.Balance.toFixed(2));
+            ko.applyBindings(appModel);
+            calculateBalances();
+            addListeners();
+            removeLoadingScreen();
+        },
+        error: function (err) {
+            console.log('error : ' + err.message);
+        }
+    });
+}
+
 function calculateBalances() {
     var lastBalanceCalculation = Number(appModel.beginningBalance());
 
@@ -57,27 +83,6 @@ function calculateBalances() {
     });
 }
 
-$(document).ready(function () {
-    var url = window.location.origin + "/api/cashflow";
-
-    $.ajax({
-        url: url,
-        type: 'GET',
-        contentType: "application/json",
-        datatype: "json",
-        success: function(data) {
-            appModel.transactions(data.XeroTransactions);
-            appModel.beginningBalance(data.Balance.toFixed(2));
-            ko.applyBindings(appModel);
-            calculateBalances();
-            addListeners();
-        },
-        error: function(err) {
-            console.log('error : ' + err.message);
-        }
-    });
-});
-
 function addListeners()
 {
     $('table').on('click', 'input[name=ignore]', function () {
@@ -92,4 +97,8 @@ function addListeners()
 
         calculateBalances();
     });
+}
+
+function removeLoadingScreen() {
+    $(".loading").fadeOut("slow");
 }
