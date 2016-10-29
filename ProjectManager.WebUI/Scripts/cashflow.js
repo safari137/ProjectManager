@@ -1,4 +1,6 @@
-﻿ko.bindingHandlers.currency = {
+﻿// Knockout Setup
+
+ko.bindingHandlers.currency = {
     update: function(element, valueAccessor, allBindingsAccessor, viewModel) {
         var amount = Number(ko.utils.unwrapObservable(valueAccessor()) || 0);
 
@@ -35,6 +37,13 @@ var viewModel = function () {
 
 var appModel = new viewModel();
 
+
+
+
+
+
+// Load Data
+
 $(document).ready(function () {
     getData();
 });
@@ -60,6 +69,13 @@ function getData() {
         }
     });
 }
+
+
+
+
+
+
+// Work To be done after data is loaded
 
 function calculateBalances() {
     var lastBalanceCalculation = Number(appModel.beginningBalance());
