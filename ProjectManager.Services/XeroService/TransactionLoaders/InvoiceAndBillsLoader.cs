@@ -24,8 +24,7 @@ namespace ProjectManager.Services.XeroService.TransactionLoaders
                 .Invoices
                 .Where("AmountDue > 0")
                 .OrderByDescending("DueDate")
-                .Find()
-                .Where(i => i.DueDate > DateTime.Today.AddMonths(-1));
+                .Find();
 
             foreach (var invoice in invoices)
             {

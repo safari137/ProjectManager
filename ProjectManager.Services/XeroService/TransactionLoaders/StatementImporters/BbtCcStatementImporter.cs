@@ -21,7 +21,8 @@ namespace ProjectManager.Services.XeroService.TransactionLoaders.StatementImport
 
         public DateTime GetDueDate(DateTime date)
         {
-            var dueDate = date.AddMonths(date.Day <= ClosingDay ? 1 : 2);
+            // Make sure we're only concerned with the date and not the time
+            var dueDate = date.Date.AddMonths(date.Day <= ClosingDay ? 1 : 2);
 
             dueDate = dueDate.AddDays(DueDay - dueDate.Day);
 
